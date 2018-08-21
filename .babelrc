@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "next/babel",
+    "stage-2"
+  ],
+  "plugins": [
+    "syntax-dynamic-import",
+    ["styled-components", { "ssr": true, "displayName": true, "preprocess": false }],
+    ["transform-define", "env/env.config.js"]
+  ]
+}

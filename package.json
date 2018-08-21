@@ -1,0 +1,175 @@
+{
+  "name": "jouryu-react",
+  "version": "1.0.0",
+  "description": "Jouryu front-end project",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.4"
+  },
+  "scripts": {
+    "clean": "rimraf dist/* && rimraf dist/.next && rimraf node_modules/.cache/babel-loader",
+    "start": "next start dist",
+    "start:prod": "better-npm-run start",
+    "start:qa": "better-npm-run start:qa",
+    "dev": "npm run prebuild && better-npm-run start:dev",
+    "prebuild": "npm run clean && tsc -p client && tsc -p server && gulp copy",
+    "build:qa": "npm run prebuild && better-npm-run build:qa",
+    "build:prod": "npm run prebuild && better-npm-run build:prod",
+    "format": "prettier --no-semi --single-quote --parser typescript --write \"client/**/*.{ts,tsx}\"",
+    "format:server": "prettier --no-semi --single-quote --parser typescript --write \"server/**/*.{ts,tsx}\"",
+    "lint": "tslint -c tslint.json -p client/tsconfig.json -e \"client/**/*.d.ts\" \"client/**/*.{ts,tsx}\"",
+    "lint:server": "tslint -c tslint.json -p server/tsconfig.json \"server/**/*.ts\"",
+    "precommit": "lint-staged",
+    "tsc:client": "tsc -p client"
+  },
+  "lint-staged": {
+    "client/**/*.{ts,tsx}": [
+      "npm run format",
+      "npm run lint",
+      "git add"
+    ],
+    "server/**/*.{ts,tsx}": [
+      "npm run format:server",
+      "npm run lint:server",
+      "git add"
+    ]
+  },
+  "betterScripts": {
+    "start:dev": {
+      "command": "concurrently \"tsc --watch -p client\" \"gulp watch\" \"node dist/server/index.js\"",
+      "env": {
+        "NODE_ENV": "development",
+        "MODE": "dev",
+        "DEBUG": "App*",
+        "PORT": 3000
+      }
+    },
+    "build:qa": {
+      "command": "next build dist",
+      "env": {
+        "NODE_ENV": "production",
+        "MODE": "qa"
+      }
+    },
+    "build:prod": {
+      "command": "next build dist",
+      "env": {
+        "NODE_ENV": "production",
+        "MODE": "prod"
+      }
+    },
+    "start:qa": {
+      "command": "node dist/server/index.js",
+      "env": {
+        "NODE_ENV": "production",
+        "MODE": "qa",
+        "PORT": 8370
+      }
+    },
+    "start": {
+      "command": "node dist/server/index.js",
+      "env": {
+        "NODE_ENV": "production",
+        "MODE": "prod",
+        "PORT": 8370
+      }
+    }
+  },
+  "externals": {
+    "global": {
+      "css": "/static/jouryu/global/global.css"
+    },
+    "antd": {
+      "css": "/static/jouryu/antd/antd.min.css"
+    },
+    "es6-promise": "/static/jouryu/es6-promise/4.1.1/es6-promise.auto.min.js"
+  },
+  "peerDependencies": {
+    "@types/react": "16.0.31",
+    "webpack": "^3.0.0"
+  },
+  "dependencies": {
+    "@types/classnames": "2.2.3",
+    "@types/cookie": "0.3.1",
+    "@types/cookie-parser": "1.4.1",
+    "@types/dompurify": "0.0.31",
+    "@types/express": "4.0.39",
+    "@types/immutability-helper": "2.0.15",
+    "@types/lodash.get": "4.4.3",
+    "@types/lru-cache": "4.1.0",
+    "@types/next": "2.4.9",
+    "@types/node": "8.5.1",
+    "@types/qs": "6.5.1",
+    "@types/react": "16.0.31",
+    "@types/react-dom": "16.0.3",
+    "@types/react-redux": "5.0.14",
+    "@types/winston": "2.3.7",
+    "antd": "^3.7.0",
+    "app-root-dir": "1.0.2",
+    "babel-plugin-import": "1.6.3",
+    "babel-preset-stage-2": "6.24.1",
+    "better-npm-run": "0.1.0",
+    "cookie": "0.3.1",
+    "cookie-parser": "1.4.3",
+    "core-js": "2.5.3",
+    "dompurify": "1.0.3",
+    "dotenv": "4.0.0",
+    "express": "4.16.2",
+    "isomorphic-unfetch": "2.0.0",
+    "lodash.get": "4.4.2",
+    "moment": "^2.22.2",
+    "next": "5.1.0",
+    "next-redux-wrapper": "1.3.5",
+    "qs": "6.5.1",
+    "react": "16.2.0",
+    "react-apollo": "1.4.16",
+    "react-click-outside": "tj/react-click-outside",
+    "react-dom": "16.2.0",
+    "react-no-ssr": "1.1.0",
+    "react-redux": "5.0.6",
+    "redux": "3.7.2",
+    "redux-action-tools": "1.2.2",
+    "redux-thunk": "2.2.0",
+    "serialize-javascript": "1.4.0",
+    "serve-favicon": "2.4.5",
+    "source-map-support": "0.5.0",
+    "styled-components": "2.1.2",
+    "tslib": "1.8.1",
+    "universal-cookie": "2.1.2",
+    "winston": "2.4.0",
+    "winston-daily-rotate-file": "1.7.2"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.1.7",
+    "babel-plugin-transform-define": "1.3.0",
+    "concurrently": "3.5.1",
+    "file-loader": "1.1.11",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-changed": "3.1.1",
+    "gulp-watch": "4.3.11",
+    "husky": "^0.14.3",
+    "lint-staged": "6.0.0",
+    "prettier": "1.9.2",
+    "rimraf": "2.6.2",
+    "tslint": "5.8.0",
+    "tslint-immutable": "4.4.0",
+    "tslint-react": "3.2.0",
+    "typescript": "2.6.2",
+    "url-loader": "0.6.2"
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-cssnext": {
+        "autoprefixer": {
+          "browsers": [
+            "Chrome >= 42",
+            "Firefox >= 39",
+            "ie > 8"
+          ]
+        }
+      },
+      "postcss-nested": {}
+    }
+  }
+}

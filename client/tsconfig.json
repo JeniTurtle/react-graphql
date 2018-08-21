@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    // "module": "commonjs",
+    // "target": "es5",
+    "module": "esnext",
+    "target": "esnext",
+    // @see: https://github.com/zeit/next.js/issues/481#issuecomment-309574133
+    // "jsx": "react",
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "rootDir": ".",
+    "outDir": "../dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    // "allowUnreachableCode": true,
+    // "checkJs": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "noEmitOnError": false,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    // Annotated for keeping webpackChunkName
+    "removeComments": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["dom", "es2015", "es2017.object", "esnext.asynciterable"],
+    "types": [
+      "cookie",
+      "dompurify",
+      "immutability-helper",
+      "lodash.get",
+      "next",
+      "node",
+      "qs",
+      "react",
+      "react-redux"
+    ]
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
