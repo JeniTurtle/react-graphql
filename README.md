@@ -1,5 +1,7 @@
 # react-graphql
 
+next.js + typescript + graphql 搭建前端框架
+
 ------
 
 
